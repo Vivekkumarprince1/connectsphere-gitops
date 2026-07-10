@@ -1,9 +1,11 @@
 global:
   image:
-    registry: connectacs.azurecr.io
+    registry: changeme.azurecr.io
     repositoryPrefix: connectsphere
     tag: latest
     pullPolicy: IfNotPresent
+  labels: {}
+  podAnnotations: {}
 
 config:
   create: true
@@ -33,45 +35,20 @@ config:
 secret:
   create: false
   name: connectsphere-secrets
+  stringData: {}
 
-services:
-  auth-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_AUTH
-  campaign-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_CAMPAIGN
-  billing-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_BILLING
-  service-provider:
-    secretEnv:
-      MONGO_URI: MONGO_URI_BSP
-  automation-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_AUTOMATION
-  chat-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_CHAT
-  contact-service:
-    secretEnv:
-      MONGO_URI: MONGO_URI_CONTACT
-  webhook-ingestor:
-    secretEnv:
-      MONGO_URI: MONGO_URI_WEBHOOK
-  websocket-gateway:
-    secretEnv:
-      MONGO_URI: MONGO_URI_WEBSOCKET
-  admin-portal:
-    secretEnv:
-      MONGODB_URI: MONGODB_URI
-      MONGODB_URI_BILLING: MONGODB_URI_BILLING
-      MONGODB_URI_CAMPAIGN: MONGODB_URI_CAMPAIGN
-      MONGODB_URI_AUTOMATION: MONGODB_URI_AUTOMATION
+imagePullSecrets: []
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
 
 ingress:
   enabled: false
   className: nginx
+  annotations: {}
+  tls: []
   hosts:
     - host: app.example.com
       service: customer-portal
@@ -85,3 +62,247 @@ ingress:
       service: api-gateway
       path: /
       pathType: Prefix
+
+services:
+  api-gateway:
+    enabled: true
+    image:
+      repository: api-gateway
+    replicas: 2
+    containerPort: 5001
+    servicePort: 5001
+    env:
+      PORT: "5001"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  auth-service:
+    enabled: true
+    image:
+      repository: auth-service
+    replicas: 2
+    containerPort: 3006
+    servicePort: 3006
+    env:
+      PORT: "3006"
+    secretEnv:
+      MONGO_URI: MONGO_URI_AUTH
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  campaign-service:
+    enabled: true
+    image:
+      repository: campaign-service
+    replicas: 1
+    containerPort: 3002
+    servicePort: 3002
+    env:
+      PORT: "3002"
+    secretEnv:
+      MONGO_URI: MONGO_URI_CAMPAIGN
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  billing-service:
+    enabled: true
+    image:
+      repository: billing-service
+    replicas: 1
+    containerPort: 3003
+    servicePort: 3003
+    env:
+      PORT: "3003"
+    secretEnv:
+      MONGO_URI: MONGO_URI_BILLING
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  service-provider:
+    enabled: true
+    image:
+      repository: service-provider
+    replicas: 1
+    containerPort: 3004
+    servicePort: 3004
+    env:
+      PORT: "3004"
+    secretEnv:
+      MONGO_URI: MONGO_URI_BSP
+    resources:
+      requests:
+        cpu: 150m
+        memory: 384Mi
+      limits:
+        cpu: 750m
+        memory: 1Gi
+
+  automation-service:
+    enabled: true
+    image:
+      repository: automation-service
+    replicas: 1
+    containerPort: 3001
+    servicePort: 3001
+    env:
+      PORT: "3001"
+    secretEnv:
+      MONGO_URI: MONGO_URI_AUTOMATION
+    resources:
+      requests:
+        cpu: 150m
+        memory: 384Mi
+      limits:
+        cpu: 750m
+        memory: 1Gi
+
+  chat-service:
+    enabled: true
+    image:
+      repository: chat-service
+    replicas: 2
+    containerPort: 3008
+    servicePort: 3008
+    env:
+      PORT: "3008"
+    secretEnv:
+      MONGO_URI: MONGO_URI_CHAT
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  contact-service:
+    enabled: true
+    image:
+      repository: contact-service
+    replicas: 1
+    containerPort: 3007
+    servicePort: 3007
+    env:
+      PORT: "3007"
+    secretEnv:
+      MONGO_URI: MONGO_URI_CONTACT
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  webhook-ingestor:
+    enabled: true
+    image:
+      repository: webhook-ingestor
+    replicas: 2
+    containerPort: 3013
+    servicePort: 3013
+    env:
+      PORT: "3013"
+    secretEnv:
+      MONGO_URI: MONGO_URI_WEBHOOK
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  websocket-gateway:
+    enabled: true
+    image:
+      repository: websocket-gateway
+    replicas: 2
+    containerPort: 3009
+    servicePort: 3009
+    env:
+      PORT: "3009"
+    secretEnv:
+      MONGO_URI: MONGO_URI_WEBSOCKET
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+
+  admin-portal:
+    enabled: true
+    image:
+      repository: admin-portal
+    replicas: 2
+    containerPort: 3100
+    servicePort: 3100
+    env:
+      PORT: "3100"
+      BACKEND_API_URL: http://connectsphere-api-gateway:5001
+    secretEnv:
+      MONGODB_URI: MONGODB_URI
+      MONGODB_URI_BILLING: MONGODB_URI_BILLING
+      MONGODB_URI_CAMPAIGN: MONGODB_URI_CAMPAIGN
+      MONGODB_URI_AUTOMATION: MONGODB_URI_AUTOMATION
+    resources:
+      requests:
+        cpu: 100m
+        memory: 384Mi
+      limits:
+        cpu: 750m
+        memory: 1Gi
+
+  customer-portal:
+    enabled: true
+    image:
+      repository: customer-portal
+    replicas: 2
+    containerPort: 3000
+    servicePort: 3000
+    env:
+      PORT: "3000"
+      BACKEND_API_URL: http://connectsphere-api-gateway:5001
+    resources:
+      requests:
+        cpu: 100m
+        memory: 384Mi
+      limits:
+        cpu: 750m
+        memory: 1Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+probes:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 20
+  periodSeconds: 15
+  timeoutSeconds: 3
+  failureThreshold: 5
