@@ -1,4 +1,5 @@
 global:
+  terminationGracePeriodSeconds: 60
   image:
     registry: changeme.azurecr.io
     repositoryPrefix: connectsphere
@@ -12,8 +13,26 @@ config:
   name: connectsphere-config
   data:
     NODE_ENV: production
+    APP_ENV: production
+    RELEASE_VERSION: v1.0.0
     ENABLE_BACKGROUND_WORKERS: "true"
-    ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
+    FEATURE_COMMERCE: "false"
+    FEATURE_AI_FAQ: "false"
+    FEATURE_META_ADS: "false"
+    FEATURE_INSTAGRAM: "false"
+    FEATURE_PETPOOJA: "false"
+    FEATURE_ADVANCED_ANSWERBOT: "false"
+    FEATURE_DEVELOPER_API: "false"
+    FEATURE_FORMS: "false"
+    NEXT_PUBLIC_FEATURE_COMMERCE: "false"
+    NEXT_PUBLIC_FEATURE_AI_FAQ: "false"
+    NEXT_PUBLIC_FEATURE_META_ADS: "false"
+    NEXT_PUBLIC_FEATURE_INSTAGRAM: "false"
+    NEXT_PUBLIC_FEATURE_PETPOOJA: "false"
+    NEXT_PUBLIC_FEATURE_ADVANCED_ANSWERBOT: "false"
+    NEXT_PUBLIC_FEATURE_DEVELOPER_API: "false"
+    NEXT_PUBLIC_FEATURE_FORMS: "false"
+    ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     NEXT_PUBLIC_APP_NAME: ConnectSphere
     NEXT_PUBLIC_APP_URL: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com
     NEXT_PUBLIC_API_URL: /api
@@ -21,6 +40,8 @@ config:
     CUSTOMER_PORTAL_URL: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com
     CUSTOMER_PORTAL_HEALTH_URL: http://connectsphere-customer-portal:3000
     ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
+    CAREER_PORTAL_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+    CAREER_PORTAL_HEALTH_URL: http://connectsphere-career-portal:3001/api/health/live
     GATEWAY_URL: http://connectsphere-api-gateway:5001
     API_GATEWAY_URL: http://connectsphere-api-gateway:5001
     AUTH_SERVICE_URL: http://connectsphere-auth-service:3006
@@ -79,6 +100,10 @@ ingress:
       service: admin-portal
       path: /
       pathType: Prefix
+    - host: careers.example.com
+      service: career-portal
+      path: /
+      pathType: Prefix
     - host: api.example.com
       service: api-gateway
       path: /
@@ -97,6 +122,11 @@ publicServices:
       service: admin-portal
       port: 80
       targetPort: 3100
+      annotations: {}
+    - name: career-portal-public
+      service: career-portal
+      port: 80
+      targetPort: 3001
       annotations: {}
 
 apiGatewayProxy:
@@ -120,6 +150,7 @@ services:
     replicas: 2
     containerPort: 5001
     servicePort: 5001
+    readinessPath: /readiness
     env:
       PORT: "5001"
       ALLOWED_ORIGINS: http://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,http://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
@@ -138,6 +169,7 @@ services:
     replicas: 2
     containerPort: 3006
     servicePort: 3006
+    readinessPath: /readiness
     env:
       PORT: "3006"
     secretEnv:
@@ -157,6 +189,7 @@ services:
     replicas: 1
     containerPort: 3002
     servicePort: 3002
+    readinessPath: /readiness
     env:
       PORT: "3002"
     secretEnv:
@@ -176,6 +209,7 @@ services:
     replicas: 1
     containerPort: 3003
     servicePort: 3003
+    readinessPath: /readiness
     env:
       PORT: "3003"
     secretEnv:
@@ -195,6 +229,7 @@ services:
     replicas: 1
     containerPort: 3004
     servicePort: 3004
+    readinessPath: /readiness
     env:
       PORT: "3004"
     secretEnv:
@@ -214,6 +249,7 @@ services:
     replicas: 1
     containerPort: 3001
     servicePort: 3001
+    readinessPath: /readiness
     env:
       PORT: "3001"
     secretEnv:
@@ -233,6 +269,7 @@ services:
     replicas: 2
     containerPort: 3008
     servicePort: 3008
+    readinessPath: /readiness
     env:
       PORT: "3008"
     secretEnv:
@@ -252,6 +289,7 @@ services:
     replicas: 1
     containerPort: 3007
     servicePort: 3007
+    readinessPath: /readiness
     env:
       PORT: "3007"
     secretEnv:
@@ -271,6 +309,7 @@ services:
     replicas: 2
     containerPort: 3013
     servicePort: 3013
+    readinessPath: /readiness
     env:
       PORT: "3013"
     secretEnv:
@@ -290,9 +329,10 @@ services:
     replicas: 2
     containerPort: 3009
     servicePort: 3009
+    readinessPath: /readiness
     env:
       PORT: "3009"
-      ALLOWED_ORIGINS: http://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,http://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
+      ALLOWED_ORIGINS: http://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,http://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,http://connectsphere-career-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     secretEnv:
       MONGO_URI: MONGO_URI_WEBSOCKET
     resources:
@@ -318,6 +358,32 @@ services:
       MONGODB_URI_BILLING: MONGODB_URI_BILLING
       MONGODB_URI_CAMPAIGN: MONGODB_URI_CAMPAIGN
       MONGODB_URI_AUTOMATION: MONGODB_URI_AUTOMATION
+    resources:
+      requests:
+        cpu: 100m
+        memory: 384Mi
+      limits:
+        cpu: 750m
+        memory: 1Gi
+
+  career-portal:
+    enabled: true
+    image:
+      repository: career-portal
+    replicas: 2
+    containerPort: 3001
+    servicePort: 3001
+    healthPath: /api/health
+    readinessPath: /api/health/ready
+    livenessPath: /api/health/live
+    env:
+      PORT: "3001"
+      APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+      BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+      REQUIRE_PRIVILEGED_MFA: "true"
+    secretEnv:
+      MONGODB_URI: MONGODB_URI
+      BETTER_AUTH_SECRET: BETTER_AUTH_SECRET
     resources:
       requests:
         cpu: 100m
