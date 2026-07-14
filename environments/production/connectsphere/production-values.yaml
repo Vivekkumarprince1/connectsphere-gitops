@@ -2,21 +2,52 @@ global:
   image:
     registry: connectacs.azurecr.io
     repositoryPrefix: connectsphere
-    tag: a5ace49fca301aaa244be95147d1b39a27673089
-    pullPolicy: IfNotPresent
+    tag: 55a3d89c4b3b2bcb0da3fdbc5c879f1e4830b3f6
+    pullPolicy: Always
 
 config:
   create: true
   name: connectsphere-config
   data:
     NODE_ENV: production
-    ALLOWED_ORIGINS: https://app.example.com,https://admin.example.com
+    APP_ENV: production
+    RELEASE_VERSION: v1.0.0
+    ENABLE_BACKGROUND_WORKERS: "true"
+    FEATURE_COMMERCE: "false"
+    FEATURE_AI_FAQ: "false"
+    FEATURE_META_ADS: "false"
+    FEATURE_INSTAGRAM: "false"
+    FEATURE_PETPOOJA: "false"
+    FEATURE_ADVANCED_ANSWERBOT: "false"
+    FEATURE_DEVELOPER_API: "false"
+    FEATURE_FORMS: "false"
+    NEXT_PUBLIC_FEATURE_COMMERCE: "false"
+    NEXT_PUBLIC_FEATURE_AI_FAQ: "false"
+    NEXT_PUBLIC_FEATURE_META_ADS: "false"
+    NEXT_PUBLIC_FEATURE_INSTAGRAM: "false"
+    NEXT_PUBLIC_FEATURE_PETPOOJA: "false"
+    NEXT_PUBLIC_FEATURE_ADVANCED_ANSWERBOT: "false"
+    NEXT_PUBLIC_FEATURE_DEVELOPER_API: "false"
+    NEXT_PUBLIC_FEATURE_FORMS: "false"
+    ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     NEXT_PUBLIC_APP_NAME: ConnectSphere
-    NEXT_PUBLIC_APP_URL: https://app.example.com
+    NEXT_PUBLIC_APP_URL: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com
     NEXT_PUBLIC_API_URL: /api
-    NEXT_PUBLIC_SOCKET_URL: ""
-    CUSTOMER_PORTAL_URL: https://app.example.com
-    ADMIN_PORTAL_URL: https://admin.example.com
+    NEXT_PUBLIC_SOCKET_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com
+    CUSTOMER_PORTAL_URL: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com
+    CUSTOMER_PORTAL_HEALTH_URL: http://connectsphere-customer-portal:3000
+    ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
+    CAREER_PORTAL_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+    CAREER_PORTAL_HEALTH_URL: http://connectsphere-career-portal:3001/api/health/live
+    GOOGLE_AUTH_ENABLED: "false"
+    NEXT_PUBLIC_GOOGLE_AUTH_ENABLED: "false"
+    NEXT_PUBLIC_FACEBOOK_AUTH_ENABLED: "false"
+    ALLOW_DEV_AUTH_MOCKS: "false"
+    ALLOW_DEV_MEDIA_MOCKS: "false"
+    ALLOW_UNSIGNED_DEV_WEBHOOKS: "false"
+    ALLOW_UNSIGNED_DEV_PAYMENT_WEBHOOKS: "false"
+    REQUIRE_WEBHOOK_SIGNATURE: "true"
+    RAZORPAY_ENABLED: "true"
     GATEWAY_URL: http://connectsphere-api-gateway:5001
     API_GATEWAY_URL: http://connectsphere-api-gateway:5001
     AUTH_SERVICE_URL: http://connectsphere-auth-service:3006
@@ -34,7 +65,110 @@ secret:
   create: false
   name: connectsphere-secrets
 
+keyVaultSecrets:
+  enabled: true
+  syncPod:
+    enabled: true
+    image: registry.k8s.io/pause:3.10
+  keyVaultName: connectsphere-prod-kv
+  tenantId: 21006d98-d493-4e9b-bdd6-6f128e1ee540
+  userAssignedIdentityID: 99cc93b9-291d-442a-936d-a637a84c8b8c
+  objects:
+    - key: GUPSHUP_PARTNER_CLIENT_SECRET
+      objectName: gupshup-partner-client-secret
+    - key: GUPSHUP_PARTNER_EMAIL
+      objectName: gupshup-partner-email
+    - key: GUPSHUP_PARTNER_PASSWORD
+      objectName: gupshup-partner-password
+    - key: INTEGRATION_ENCRYPTION_KEY
+      objectName: integration-encryption-key
+    - key: INTERNAL_SERVICE_SECRET
+      objectName: internal-service-secret
+    - key: JWT_SECRET
+      objectName: jwt-secret
+    - key: BETTER_AUTH_SECRET
+      objectName: better-auth-secret
+    - key: SMTP_HOST
+      objectName: career-smtp-host
+    - key: SMTP_USER
+      objectName: career-smtp-user
+    - key: SMTP_PASSWORD
+      objectName: career-smtp-password
+    - key: EMAIL_REPLY_TO
+      objectName: career-email-reply-to
+    - key: CONTRACT_ENCRYPTION_KEY
+      objectName: career-contract-encryption-key
+    - key: WEBHOOK_ENCRYPTION_KEY
+      objectName: career-webhook-encryption-key
+    - key: RECAPTCHA_SECRET_KEY
+      objectName: career-recaptcha-secret-key
+    - key: OBSERVABILITY_HTTP_ENDPOINT
+      objectName: career-observability-http-endpoint
+    - key: OBSERVABILITY_HTTP_TOKEN
+      objectName: career-observability-http-token
+    - key: METRICS_TOKEN
+      objectName: career-metrics-token
+    - key: MALWARE_SCAN_URL
+      objectName: career-malware-scan-url
+    - key: MALWARE_SCAN_TOKEN
+      objectName: career-malware-scan-token
+    - key: RATE_LIMIT_REST_URL
+      objectName: career-rate-limit-rest-url
+    - key: RATE_LIMIT_REST_TOKEN
+      objectName: career-rate-limit-rest-token
+    - key: MONGODB_URI
+      objectName: mongodb-uri
+    - key: MONGODB_URI_AUTOMATION
+      objectName: mongodb-uri-automation
+    - key: MONGODB_URI_BILLING
+      objectName: mongodb-uri-billing
+    - key: MONGODB_URI_CAMPAIGN
+      objectName: mongodb-uri-campaign
+    - key: MONGO_URI_AUTH
+      objectName: mongo-uri-auth
+    - key: MONGO_URI_AUTOMATION
+      objectName: mongo-uri-automation
+    - key: MONGO_URI_BILLING
+      objectName: mongo-uri-billing
+    - key: MONGO_URI_BSP
+      objectName: mongo-uri-bsp
+    - key: MONGO_URI_CAMPAIGN
+      objectName: mongo-uri-campaign
+    - key: MONGO_URI_CHAT
+      objectName: mongo-uri-chat
+    - key: MONGO_URI_CONTACT
+      objectName: mongo-uri-contact
+    - key: MONGO_URI_WEBHOOK
+      objectName: mongo-uri-webhook
+    - key: MONGO_URI_WEBSOCKET
+      objectName: mongo-uri-websocket
+    - key: REDIS_URL
+      objectName: redis-url
+    - key: VERIFY_TOKEN
+      objectName: verify-token
+    - key: WEBHOOK_SECRET
+      objectName: webhook-secret
+    - key: WEBHOOK_VERIFY_TOKEN
+      objectName: webhook-verify-token
+    - key: CLOUDINARY_CLOUD_NAME
+      objectName: cloudinary-cloud-name
+    - key: CLOUDINARY_API_KEY
+      objectName: cloudinary-api-key
+    - key: CLOUDINARY_API_SECRET
+      objectName: cloudinary-api-secret
+    - key: RAZORPAY_KEY_ID
+      objectName: razorpay-key-id
+    - key: RAZORPAY_KEY_SECRET
+      objectName: razorpay-key-secret
+    - key: RAZORPAY_WEBHOOK_SECRET
+      objectName: razorpay-webhook-secret
+    - key: WHATSAPP_WEBHOOK_VERIFY_TOKEN
+      objectName: whatsapp-webhook-verify-token
+
 services:
+  api-gateway:
+    env:
+      ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
   auth-service:
     secretEnv:
       MONGO_URI: MONGO_URI_AUTH
@@ -45,6 +179,8 @@ services:
     secretEnv:
       MONGO_URI: MONGO_URI_BILLING
   service-provider:
+    env:
+      WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
     secretEnv:
       MONGO_URI: MONGO_URI_BSP
   automation-service:
@@ -60,6 +196,8 @@ services:
     secretEnv:
       MONGO_URI: MONGO_URI_WEBHOOK
   websocket-gateway:
+    env:
+      ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     secretEnv:
       MONGO_URI: MONGO_URI_WEBSOCKET
   admin-portal:
@@ -68,20 +206,92 @@ services:
       MONGODB_URI_BILLING: MONGODB_URI_BILLING
       MONGODB_URI_CAMPAIGN: MONGODB_URI_CAMPAIGN
       MONGODB_URI_AUTOMATION: MONGODB_URI_AUTOMATION
+  career-portal:
+    env:
+      APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+      BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
+      REQUIRE_PRIVILEGED_MFA: "true"
+      SMTP_PORT: "587"
+      SMTP_SECURE: "false"
+    secretEnv:
+      MONGODB_URI: MONGODB_URI
+      BETTER_AUTH_SECRET: BETTER_AUTH_SECRET
+      SMTP_HOST: SMTP_HOST
+      SMTP_USER: SMTP_USER
+      SMTP_PASSWORD: SMTP_PASSWORD
+      EMAIL_REPLY_TO: EMAIL_REPLY_TO
+      CLOUDINARY_CLOUD_NAME: CLOUDINARY_CLOUD_NAME
+      CLOUDINARY_API_KEY: CLOUDINARY_API_KEY
+      CLOUDINARY_API_SECRET: CLOUDINARY_API_SECRET
+      CONTRACT_ENCRYPTION_KEY: CONTRACT_ENCRYPTION_KEY
+      WEBHOOK_ENCRYPTION_KEY: WEBHOOK_ENCRYPTION_KEY
+      RECAPTCHA_SECRET_KEY: RECAPTCHA_SECRET_KEY
+      OBSERVABILITY_HTTP_ENDPOINT: OBSERVABILITY_HTTP_ENDPOINT
+      OBSERVABILITY_HTTP_TOKEN: OBSERVABILITY_HTTP_TOKEN
+      METRICS_TOKEN: METRICS_TOKEN
+      MALWARE_SCAN_URL: MALWARE_SCAN_URL
+      MALWARE_SCAN_TOKEN: MALWARE_SCAN_TOKEN
+      RATE_LIMIT_REST_URL: RATE_LIMIT_REST_URL
+      RATE_LIMIT_REST_TOKEN: RATE_LIMIT_REST_TOKEN
 
 ingress:
-  enabled: false
+  enabled: true
   className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  tls:
+    - secretName: connectsphere-public-tls
+      hosts:
+        - connectsphere-customer-vivek.eastus.cloudapp.azure.com
+        - connectsphere-admin-vivek.eastus.cloudapp.azure.com
+        - connectsphere-career-vivek.eastus.cloudapp.azure.com
   hosts:
-    - host: app.example.com
+    - host: connectsphere-customer-vivek.eastus.cloudapp.azure.com
       service: customer-portal
       path: /
       pathType: Prefix
-    - host: admin.example.com
+    - host: connectsphere-admin-vivek.eastus.cloudapp.azure.com
       service: admin-portal
       path: /
       pathType: Prefix
-    - host: api.example.com
-      service: api-gateway
+    - host: connectsphere-career-vivek.eastus.cloudapp.azure.com
+      service: career-portal
       path: /
       pathType: Prefix
+
+publicServices:
+  enabled: false
+  items:
+    - name: customer-portal-public
+      service: customer-portal
+      port: 80
+      targetPort: 3000
+      annotations:
+        service.beta.kubernetes.io/azure-dns-label-name: connectsphere-customer-vivek
+    - name: admin-portal-public
+      service: admin-portal
+      port: 80
+      targetPort: 3100
+      annotations:
+        service.beta.kubernetes.io/azure-dns-label-name: connectsphere-admin-vivek
+    - name: career-portal-public
+      service: career-portal
+      port: 80
+      targetPort: 3001
+      annotations:
+        service.beta.kubernetes.io/azure-dns-label-name: connectsphere-career-vivek
+
+apiGatewayProxy:
+  enabled: true
+  host: connectsphere-api-vivek.eastus.cloudapp.azure.com
+  email: vivekkumarprince1@gmail.com
+  image: caddy:2.9-alpine
+  upstream: connectsphere-api-gateway:5001
+  storage:
+    enabled: true
+    size: 1Gi
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-dns-label-name: connectsphere-api-vivek
