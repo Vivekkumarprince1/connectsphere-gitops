@@ -2,7 +2,7 @@ global:
   image:
     registry: connectacs.azurecr.io
     repositoryPrefix: connectsphere
-    tag: 7ed1cf0d5e5dee591783026f4df8c6fb2097c5fd
+    tag: c657427a08e2da0f622a47473a5907d770889c16
     pullPolicy: Always
 
 config:
