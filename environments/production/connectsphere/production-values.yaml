@@ -149,7 +149,7 @@ keyVaultSecrets:
 services:
   customer-portal:
     image:
-      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
+      tag: ab74dc4ebd14040dd65da427a0e8bff80596b2bd
   api-gateway:
     image:
       tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
@@ -281,7 +281,7 @@ services:
       minAvailable: 1
   admin-portal:
     image:
-      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
+      tag: ab74dc4ebd14040dd65da427a0e8bff80596b2bd
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
