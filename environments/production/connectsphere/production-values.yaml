@@ -147,7 +147,12 @@ keyVaultSecrets:
       objectName: whatsapp-webhook-verify-token
 
 services:
+  customer-portal:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
   api-gateway:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     env:
       ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     autoscaling:
@@ -158,6 +163,8 @@ services:
       enabled: true
       minAvailable: 1
   auth-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_AUTH
       JWT_SECRET: JWT_SECRET
@@ -177,18 +184,24 @@ services:
       enabled: true
       minAvailable: 1
   campaign-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_CAMPAIGN
       JWT_SECRET: JWT_SECRET
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
       REDIS_URL: REDIS_URL
   billing-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_BILLING
       JWT_SECRET: JWT_SECRET
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
       REDIS_URL: REDIS_URL
   service-provider:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
     secretEnv:
@@ -203,6 +216,8 @@ services:
       WEBHOOK_SECRET: WEBHOOK_SECRET
       WHATSAPP_WEBHOOK_VERIFY_TOKEN: WHATSAPP_WEBHOOK_VERIFY_TOKEN
   automation-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_AUTOMATION
       JWT_SECRET: JWT_SECRET
@@ -210,6 +225,8 @@ services:
       INTEGRATION_ENCRYPTION_KEY: INTEGRATION_ENCRYPTION_KEY
       REDIS_URL: REDIS_URL
   chat-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_CHAT
       JWT_SECRET: JWT_SECRET
@@ -223,12 +240,16 @@ services:
       enabled: true
       minAvailable: 1
   contact-service:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_CONTACT
       JWT_SECRET: JWT_SECRET
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
       REDIS_URL: REDIS_URL
   webhook-ingestor:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     secretEnv:
       MONGO_URI: MONGO_URI_WEBHOOK
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
@@ -243,6 +264,8 @@ services:
       enabled: true
       minAvailable: 1
   websocket-gateway:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     env:
       ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     secretEnv:
@@ -257,6 +280,8 @@ services:
       enabled: true
       minAvailable: 1
   admin-portal:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
@@ -272,6 +297,8 @@ services:
       GUPSHUP_PARTNER_EMAIL: GUPSHUP_PARTNER_EMAIL
       GUPSHUP_PARTNER_PASSWORD: GUPSHUP_PARTNER_PASSWORD
   career-portal:
+    image:
+      tag: 1ea5c912ee97ec87d2350aecc4d216262b87a1fb
     env:
       APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
       BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
