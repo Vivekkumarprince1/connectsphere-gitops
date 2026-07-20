@@ -300,7 +300,7 @@ services:
       GUPSHUP_PARTNER_PASSWORD: GUPSHUP_PARTNER_PASSWORD
   career-portal:
     image:
-      tag: d735641aa94005ad7d53f6ebaff6dab7feadbc77
+      tag: 04e7f0776eea00da5b744e3b63b6e969cfe98fcc
     env:
       APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
       BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
