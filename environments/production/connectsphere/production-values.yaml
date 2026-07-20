@@ -155,7 +155,7 @@ keyVaultSecrets:
 services:
   customer-portal:
     image:
-      tag: 6f5529c1208ed8ecb38396c0c89f7ad9b9897d72
+      tag: c3800e3bf20e87f40faa344786e1d8ab4405f4e2
   api-gateway:
     image:
       tag: 84592951460b560e3fb6b3a9e88ffab1d6605440
@@ -199,7 +199,7 @@ services:
       REDIS_URL: REDIS_URL
   billing-service:
     image:
-      tag: 6f5529c1208ed8ecb38396c0c89f7ad9b9897d72
+      tag: c3800e3bf20e87f40faa344786e1d8ab4405f4e2
     secretEnv:
       MONGO_URI: MONGO_URI_BILLING
       JWT_SECRET: JWT_SECRET
