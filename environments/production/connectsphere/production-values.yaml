@@ -166,7 +166,7 @@ services:
       minAvailable: 1
   auth-service:
     image:
-      tag: d735641aa94005ad7d53f6ebaff6dab7feadbc77
+      tag: 6022204adad151574a9dd068978db5fe56c7fce5
     secretEnv:
       MONGO_URI: MONGO_URI_AUTH
       JWT_SECRET: JWT_SECRET
@@ -283,7 +283,7 @@ services:
       minAvailable: 1
   admin-portal:
     image:
-      tag: d266f1614496c8a66c284a3cc502730570bdebce
+      tag: 6022204adad151574a9dd068978db5fe56c7fce5
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
