@@ -283,7 +283,7 @@ services:
       minAvailable: 1
   admin-portal:
     image:
-      tag: 7afecf0485f2eaffbae43f78ab146280fd92a6d7
+      tag: d266f1614496c8a66c284a3cc502730570bdebce
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
