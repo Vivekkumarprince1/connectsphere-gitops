@@ -111,6 +111,12 @@ keyVaultSecrets:
       objectName: auth-smtp-from
     - key: EMAIL_REPLY_TO
       objectName: email-reply-to
+    - key: RAZORPAY_KEY_ID
+      objectName: razorpay-key-id
+    - key: RAZORPAY_KEY_SECRET
+      objectName: razorpay-key-secret
+    - key: RAZORPAY_WEBHOOK_SECRET
+      objectName: razorpay-webhook-secret
     - key: MONGODB_URI
       objectName: mongodb-uri
     - key: MONGODB_URI_AUTOMATION
@@ -149,7 +155,7 @@ keyVaultSecrets:
 services:
   customer-portal:
     image:
-      tag: 84592951460b560e3fb6b3a9e88ffab1d6605440
+      tag: 0c795094dfcb6ec51f741a3906108a6102e2f077
   api-gateway:
     image:
       tag: 84592951460b560e3fb6b3a9e88ffab1d6605440
@@ -193,12 +199,15 @@ services:
       REDIS_URL: REDIS_URL
   billing-service:
     image:
-      tag: 84592951460b560e3fb6b3a9e88ffab1d6605440
+      tag: 0c795094dfcb6ec51f741a3906108a6102e2f077
     secretEnv:
       MONGO_URI: MONGO_URI_BILLING
       JWT_SECRET: JWT_SECRET
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
       REDIS_URL: REDIS_URL
+      RAZORPAY_KEY_ID: RAZORPAY_KEY_ID
+      RAZORPAY_KEY_SECRET: RAZORPAY_KEY_SECRET
+      RAZORPAY_WEBHOOK_SECRET: RAZORPAY_WEBHOOK_SECRET
   service-provider:
     image:
       tag: 84592951460b560e3fb6b3a9e88ffab1d6605440
