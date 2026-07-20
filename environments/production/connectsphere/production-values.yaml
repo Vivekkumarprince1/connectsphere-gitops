@@ -101,6 +101,8 @@ keyVaultSecrets:
       objectName: google-client-id
     - key: GOOGLE_CLIENT_SECRET
       objectName: google-client-secret
+    - key: ADMIN_GOOGLE_SIGNUP_EMAILS
+      objectName: admin-google-signup-emails
     - key: SMTP_HOST
       objectName: smtp-host
     - key: SMTP_USER
@@ -164,7 +166,7 @@ services:
       minAvailable: 1
   auth-service:
     image:
-      tag: 1f2c44ad52deb202a334ff8871db7fee9de0227c
+      tag: d735641aa94005ad7d53f6ebaff6dab7feadbc77
     secretEnv:
       MONGO_URI: MONGO_URI_AUTH
       JWT_SECRET: JWT_SECRET
@@ -281,7 +283,7 @@ services:
       minAvailable: 1
   admin-portal:
     image:
-      tag: ea513942cd0435e6240130f97fe2adf2203d26ef
+      tag: d735641aa94005ad7d53f6ebaff6dab7feadbc77
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
@@ -298,7 +300,7 @@ services:
       GUPSHUP_PARTNER_PASSWORD: GUPSHUP_PARTNER_PASSWORD
   career-portal:
     image:
-      tag: ab74dc4ebd14040dd65da427a0e8bff80596b2bd
+      tag: d735641aa94005ad7d53f6ebaff6dab7feadbc77
     env:
       APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
       BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
