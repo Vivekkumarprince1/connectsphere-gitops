@@ -165,10 +165,10 @@ keyVaultSecrets:
 services:
   customer-portal:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
   api-gateway:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     env:
       ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     autoscaling:
@@ -180,7 +180,7 @@ services:
       minAvailable: 1
   auth-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_AUTH
       JWT_SECRET: JWT_SECRET
@@ -201,7 +201,7 @@ services:
       minAvailable: 1
   campaign-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_CAMPAIGN
       JWT_SECRET: JWT_SECRET
@@ -209,7 +209,7 @@ services:
       REDIS_URL: REDIS_URL
   billing-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_BILLING
       JWT_SECRET: JWT_SECRET
@@ -220,7 +220,7 @@ services:
       RAZORPAY_WEBHOOK_SECRET: RAZORPAY_WEBHOOK_SECRET
   service-provider:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
     secretEnv:
@@ -236,7 +236,7 @@ services:
       WHATSAPP_WEBHOOK_VERIFY_TOKEN: WHATSAPP_WEBHOOK_VERIFY_TOKEN
   automation-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_AUTOMATION
       JWT_SECRET: JWT_SECRET
@@ -245,7 +245,7 @@ services:
       REDIS_URL: REDIS_URL
   chat-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_CHAT
       JWT_SECRET: JWT_SECRET
@@ -260,7 +260,7 @@ services:
       minAvailable: 1
   contact-service:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_CONTACT
       JWT_SECRET: JWT_SECRET
@@ -268,7 +268,7 @@ services:
       REDIS_URL: REDIS_URL
   webhook-ingestor:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     secretEnv:
       MONGO_URI: MONGO_URI_WEBHOOK
       INTERNAL_SERVICE_SECRET: INTERNAL_SERVICE_SECRET
@@ -284,7 +284,7 @@ services:
       minAvailable: 1
   websocket-gateway:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     env:
       ALLOWED_ORIGINS: https://connectsphere-customer-vivek.eastus.cloudapp.azure.com,https://connectsphere-admin-vivek.eastus.cloudapp.azure.com,https://connectsphere-career-vivek.eastus.cloudapp.azure.com
     secretEnv:
@@ -300,7 +300,7 @@ services:
       minAvailable: 1
   admin-portal:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     env:
       WHATSAPP_WEBHOOK_URL: https://connectsphere-api-vivek.eastus.cloudapp.azure.com/api/webhooks/whatsapp
       ADMIN_PORTAL_URL: https://connectsphere-admin-vivek.eastus.cloudapp.azure.com
@@ -317,7 +317,7 @@ services:
       GUPSHUP_PARTNER_PASSWORD: GUPSHUP_PARTNER_PASSWORD
   career-portal:
     image:
-      tag: 4c88619458f41bd44ef01004a9369ef9007e7d5a
+      tag: e9d8f8a2fd7207fa42b252f4f2e5d8e980a42b7e
     env:
       APP_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
       BETTER_AUTH_URL: https://connectsphere-career-vivek.eastus.cloudapp.azure.com
